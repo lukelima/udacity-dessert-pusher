@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     // Contains all the views
     private lateinit var binding: ActivityMainBinding
+    private lateinit var timer: DessertTimer
 
     /** Dessert Data **/
 
@@ -75,13 +76,13 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         binding.dessertButton.setOnClickListener {
             onDessertClicked()
         }
-
         // Set the TextViews to the right values
         binding.revenue = revenue
         binding.amountSold = dessertsSold
 
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
+        timer = DessertTimer()
     }
 
     /**
@@ -153,6 +154,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onStart() {
         super.onStart()
+        timer.startTimer()
         Timber.i("onStart called")
     }
 
@@ -178,6 +180,6 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onStop() {
         super.onStop()
-        Timber.i("onStop called")
+        timer.stopTimer()
     }
 }
